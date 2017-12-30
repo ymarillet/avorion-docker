@@ -1,37 +1,34 @@
-[![GitHub release](https://img.shields.io/github/release/psykzz/avorion-docker.svg?style=flat-square)]()
-[![Docker Automated buil](https://img.shields.io/docker/automated/psykzz/avorion-docker.svg?style=flat-square)]()
-[![Docker Pulls](https://img.shields.io/docker/pulls/psykzz/avorion-docker.svg?style=flat-square)]()
-
 Avorion for Docker
 ==================
-
 
 ### Game Info
 
 For some information about the game see https://www.kickstarter.com/projects/koonschi/avorion
 
-This is a docker image to create a dedicated server.
-
-**Currently supported version: 0.10.2**
+**Supported version is the latest stable version available on Steam**
 
 
 ## Getting started
-Starting the server 
+1. Make sure Git and Docker-compose are also installed along with Docker
+1. Create a `.env` file from the `.env.dist` template and tweak the values as you like
+1. Put your galaxy data previously created in `/opt/avorion_server/data` (by default)
+   OR run the server once to let it create a galaxy for you so you can modify the settings.ini to your needs
 
-* Create a `/data` directory, this will be mounted into the container.
-* Add your settings.ini and fill out the values as you like.
-
-> **Note: if you change ports in the config, you'll need to adjust the port mappings.**
-
-Run the following to start the server.
+Run the following commands to start the server:
 ```
-docker run --name avorion -d -v `pwd`/data:/root/.avorion/galaxies/avorion_galaxy -p 27000:27000 -p 27000:27000/udp -p 27003:27003 -p 27003:27003/udp -p 27020:27020 -p 27022:27022 psykzz/avorion-docker
+git clone https://github.com/ymarillet/avorion-docker.git
+cd avorion-docker
+docker-compose up
 ```
 
-The server data will be saved locally on the host machine within the data folder. This allows you to bring the server down, and restart when needed to do any updates.
+You can access the server logs with: `docker-compose logs -f` (it acts as `tail -f`)
 
-You can specify an admin via the environment, adding `-e USER=<steamid>` to set the default admin on server start.
+You can stop the server with: `docker-compose down`
 
+> Note: The server is slow to start compared to the `psykzz/avorion-docker` version
+> because the container is recreated every time (except the server data), so it means
+> that it has to re-download the steam wrapper and the server program 
+> but this way it ensures you always have the most up-to-date server version
 
 ## Contributing
 

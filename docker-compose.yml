@@ -1,0 +1,15 @@
+version: '3'
+services:
+  server:
+    env_file: .env
+    restart: unless-stopped
+    image: ymarillet/avorion-docker
+    volumes:
+      - "${LOCAL_DIRECTORY}/data:/root/.avorion/galaxies/avorion_galaxy"
+    ports:
+      - "27000:27000/tcp"
+      - "27000:27000/udp"
+      - "27003:27003/tcp"
+      - "27003:27003/udp"
+      - "27020:27020/tcp"
+      - "27021:27021/tcp"

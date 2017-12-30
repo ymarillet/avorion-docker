@@ -19,5 +19,5 @@
 
 (
 	cd ${SERVER_DIRECTORY}
-	./server.sh
+	./server.sh ${CMD_ARGS}
 )
